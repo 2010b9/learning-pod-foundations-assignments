@@ -1,4 +1,5 @@
 from pathlib import Path
+import argparse
 import pandas as pd
 
 
@@ -66,19 +67,22 @@ class LifeExpectancyData:
         ]
 
 
-def clean_data():
-    """Cleans the life expectancy dataset"""
+def clean_data(region: str) -> None:
+    """Cleans the life expectancy dataset and saves it to a csv"""
     life_expectancy = LifeExpectancyData(
         f"{CURRENT_DIR}/data/eu_life_expectancy_raw.tsv"
     )
-
     life_expectancy.cast_columns_to_correct_types()
     life_expectancy.get_life_expectancy_df()
-    life_expectancy.filter_dataset_by_region().to_csv(
+
+    life_expectancy.filter_dataset_by_region(region).to_csv(
         f"{CURRENT_DIR}/data/pt_life_expectancy.csv", index=False
     )
 
 
+if __name__ == "__main__": # pragma: no cover
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--region", default="PT")
+    args = parser.parse_args()
 
-if __name__ == "__main__":
-    clean_data()
+    clean_data(args.region)
