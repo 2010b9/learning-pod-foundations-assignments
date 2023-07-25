@@ -1,3 +1,5 @@
+[![Linting and Testing](https://github.com/2010b9/learning-pod-foundations-assignments/actions/workflows/linting_&_testing.yml/badge.svg)](https://github.com/2010b9/learning-pod-foundations-assignments/actions/workflows/linting_&_testing.yml)
+
 # Foundations Learning Path Assignments
 
 ## Introduction
