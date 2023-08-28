@@ -5,14 +5,13 @@ import pandas as pd
 
 CURRENT_DIR = str(Path(__file__).parent)
 LIFE_EXPECTANCY_DATA_PATH = CURRENT_DIR + "/data/eu_life_expectancy_raw.tsv"
-OUTPUT_DATA_PATH = CURRENT_DIR + "/data/pt_life_expectancy.csv"
 
 
 def main(region: str = "PT") -> None:
     """Loads the life expectancy, cleans and saves it as a csv file"""
     life_expectancy_df = load_data()
     life_expectancy_df_cleaned = clean_data(life_expectancy_df, region)
-    save_data(life_expectancy_df_cleaned)
+    save_data(life_expectancy_df_cleaned, region)
 
 
 def load_data() -> pd.DataFrame:
@@ -34,9 +33,11 @@ def clean_data(
     )
 
 
-def save_data(life_expectancy_df_cleaned: pd.DataFrame) -> None:
+def save_data(life_expectancy_df_cleaned: pd.DataFrame, region: str) -> None:
     """Saves the cleaned life expectancy DataFrame to a csv file"""
-    life_expectancy_df_cleaned.to_csv(OUTPUT_DATA_PATH, index=False)
+    output_data_path = CURRENT_DIR +\
+        f"/data/{region.lower()}_life_expectancy.csv"
+    life_expectancy_df_cleaned.to_csv(output_data_path, index=False)
 
 
 def _split_column_into_several(
@@ -93,5 +94,5 @@ def _filter_dataset_by_region(
 if __name__ == "__main__": # pragma: no cover
     parser = argparse.ArgumentParser()
     parser.add_argument("--region", default="PT")
-    args = parser.parse_args()
-    main(args.region)
+    region_str = parser.parse_args().region
+    main(region_str)
