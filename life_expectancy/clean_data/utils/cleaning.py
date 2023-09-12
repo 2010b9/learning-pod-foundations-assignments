@@ -1,22 +1,5 @@
-from pathlib import Path
-import argparse
+"""Cleans dataframe"""
 import pandas as pd
-
-
-CURRENT_DIR = str(Path(__file__).parent)
-LIFE_EXPECTANCY_DATA_PATH = CURRENT_DIR + "/data/eu_life_expectancy_raw.tsv"
-
-
-def main(region: str = "PT") -> None:
-    """Loads the life expectancy, cleans and saves it as a csv file"""
-    life_expectancy_df = load_data()
-    life_expectancy_df_cleaned = clean_data(life_expectancy_df, region)
-    save_data(life_expectancy_df_cleaned, region)
-
-
-def load_data() -> pd.DataFrame:
-    """Loads the life expectancy TSV to a pandas DataFrame"""
-    return pd.read_table(LIFE_EXPECTANCY_DATA_PATH)
 
 
 def clean_data(
@@ -30,14 +13,8 @@ def clean_data(
         .pipe(_process_values)
         .pipe(_cast_columns_to_correct_types)
         .pipe(_filter_dataset_by_region, region=region)
+        .reset_index(drop=True)
     )
-
-
-def save_data(life_expectancy_df_cleaned: pd.DataFrame, region: str) -> None:
-    """Saves the cleaned life expectancy DataFrame to a csv file"""
-    output_data_path = CURRENT_DIR +\
-        f"/data/{region.lower()}_life_expectancy.csv"
-    life_expectancy_df_cleaned.to_csv(output_data_path, index=False)
 
 
 def _split_column_into_several(
@@ -89,10 +66,3 @@ def _filter_dataset_by_region(
 ) -> pd.DataFrame:
     """Filter the life expectancy DataFrame by region"""
     return life_expectancy_df[life_expectancy_df.region == region]
-
-
-if __name__ == "__main__": # pragma: no cover
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--region", default="PT")
-    region_str = parser.parse_args().region
-    main(region_str)
