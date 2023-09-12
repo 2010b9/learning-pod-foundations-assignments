@@ -1,8 +1,8 @@
 import argparse
 from pathlib import Path
 import pandas as pd
-from .utils.cleaning import clean_data
-from .utils.load_save_data import load_data
+from life_expectancy.clean_data.utils.cleaning import clean_data
+from life_expectancy.clean_data.utils.load_save_data import load_data
 
 
 CURRENT_DIR = str(Path(__file__).parents[1])
@@ -15,7 +15,6 @@ def main(
     """Loads the life expectancy, cleans and saves it as a csv file"""
     life_expectancy_df = load_data(path)
     life_expectancy_df_cleaned = clean_data(life_expectancy_df, region)
-    print(life_expectancy_df_cleaned)
     return life_expectancy_df_cleaned
 
 
