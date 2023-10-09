@@ -9,4 +9,4 @@ def load_data(path) -> pd.DataFrame:
 
 def save_data(df_to_save: pd.DataFrame, output_data_path: str) -> None:
     """Saves the cleaned life expectancy DataFrame to a csv file"""
-    return df_to_save.to_csv(output_data_path, index=False)
+    df_to_save.to_csv(output_data_path, index=False)
