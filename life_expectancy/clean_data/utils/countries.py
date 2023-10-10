@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import List
 
 class Country(Enum):
     """Enum class representing a country"""
@@ -52,7 +53,7 @@ class Country(Enum):
     EEA3 = "EEA3"
 
     @classmethod
-    def get_countries(cls) -> list[str]:
+    def get_countries(cls) -> List[str]:
         """Get a list with all the countries"""
         all_countries = set()
         for _, possible_country in cls.__members__.items():

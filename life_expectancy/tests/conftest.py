@@ -1,4 +1,5 @@
 """Pytest configuration file"""
+from typing import List
 import pandas as pd
 import pytest
 
@@ -29,7 +30,7 @@ def eu_life_expectancy_tsv() -> pd.DataFrame:
 
 
 @pytest.fixture(scope="function")
-def all_countries() -> list[str]:
+def all_countries() -> List[str]:
     """Returns a list with all possible countries"""
     return [
         "AL", "AM", "AT", "AZ", "BE", "BG", "BY", "CH", "CY", "CZ", "DE",
