@@ -1,6 +1,8 @@
-from enum import Enum
+from enum import Enum, unique
 from typing import List
 
+
+@unique
 class Country(Enum):
     """Enum class representing a country"""
     AT = "AT"
@@ -55,8 +57,4 @@ class Country(Enum):
     @classmethod
     def get_countries(cls) -> List[str]:
         """Get a list with all the countries"""
-        all_countries = set()
-        for _, possible_country in cls.__members__.items():
-            if len(possible_country.value) == 2:
-                all_countries.add(possible_country.value)
-        return sorted(list(all_countries))
+        return sorted([country.value for country in cls if len(country.value) == 2])
