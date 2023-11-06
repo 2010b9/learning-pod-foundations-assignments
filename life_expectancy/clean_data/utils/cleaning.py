@@ -1,9 +1,10 @@
 """Cleans dataframe"""
 import pandas as pd
+from life_expectancy.clean_data.utils.countries import Country
 
 
 def clean_data(
-    life_expectancy_df: pd.DataFrame, region: str = "PT"
+    life_expectancy_df: pd.DataFrame, region: Country = Country.PT
 ) -> pd.DataFrame:
     """Cleans the data in the life expectancy DataFrame"""
     return (
@@ -62,7 +63,7 @@ def _cast_columns_to_correct_types(
 
 
 def _filter_dataset_by_region(
-    life_expectancy_df: pd.DataFrame, region: str
+    life_expectancy_df: pd.DataFrame, region: Country = Country.PT
 ) -> pd.DataFrame:
     """Filter the life expectancy DataFrame by region"""
-    return life_expectancy_df[life_expectancy_df.region == region]
+    return life_expectancy_df[life_expectancy_df.region == region.value]
